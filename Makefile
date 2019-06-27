@@ -9,7 +9,7 @@ help: ## This help
 
 .PHONY: test
 test: cs phpstan
-test-ci: test ui-test check_security
+test-ci: test ui-test
 
 ui-test: vendor ## Run ui tests
 	./vendor/bin/phpunit --testdox --group=ui

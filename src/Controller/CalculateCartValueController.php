@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\CartValueCalculator\CanCalculateCartValue;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class CalculateCartValueController
 {
-    public function calculate() : JsonResponse
+    public function calculate(Request $request, CanCalculateCartValue $calculateCartValue) : JsonResponse
     {
-        return new JsonResponse([
-            'checkoutPrice' => 82.18,
-            'checkoutCurrency' => 'EUR',
-        ]);
+        $requestJson = json_decode($request->getContent(), true);
+
+        $checkoutPrice = $calculateCartValue->calculate($requestJson['items'], $requestJson['checkoutCurrency']);
+
+        return new JsonResponse($checkoutPrice);
     }
 }

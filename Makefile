@@ -48,8 +48,8 @@ vendor: composer.json composer.lock
 start: .web-server-pid
 
 .web-server-pid: vendor ## Starts the server
-	php vendor/bin/console server:start 127.0.0.1:8080
+	php ./bin/console server:start 127.0.0.1:8080
 
 .PHONY: stop
 stop: vendor ## Stop the server
-	php vendor/bin/console server:stop
+	php ./bin/console server:stop

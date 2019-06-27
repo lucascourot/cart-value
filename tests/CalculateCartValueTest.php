@@ -28,8 +28,11 @@ class CalculateCartValueTest extends KernelTestCase
         ]);
     }
 
-    public function testShouldCalculateCartValue() : void
+    public function testShouldCalculateCartValueForFixedUSDRate() : void
     {
+        // Given
+        // USD / EUR rate is at 1.1183 @see FixedCurrencyConverter
+
         // When
         $response = $this->client->request('POST', '/calculations', [
             'json' => [

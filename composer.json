@@ -13,6 +13,12 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "doctrine/coding-standard": "^6.0",
+        "phpstan/phpstan": "^0.11.8",
+        "phpstan/phpstan-phpunit": "^0.11.2",
+        "phpstan/phpstan-strict-rules": "^0.11.1",
+        "phpunit/phpunit": "^8.2",
+        "symfony/maker-bundle": "^1.11"
     },
     "config": {
         "preferred-install": {
@@ -55,7 +61,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "4.3.*"
         }
     }

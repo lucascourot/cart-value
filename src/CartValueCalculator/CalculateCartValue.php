@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\CartValueCalculator;
 
-use Money\Converter;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
-use Money\Exchange\FixedExchange;
-use Money\Exchange\ReversedCurrenciesExchange;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
 
 final class CalculateCartValue implements CanCalculateCartValue
 {
+    /** @var CurrencyConverter */
+    private $converter;
+
+    public function __construct(CurrencyConverter $converter)
+    {
+        $this->converter = $converter;
+    }
+
     /**
      * @param mixed[] $items
      */
@@ -21,13 +26,7 @@ final class CalculateCartValue implements CanCalculateCartValue
     {
         $checkoutPrice = new Money(0, new Currency($checkoutCurrency));
 
-        $currencies = new ISOCurrencies();
-        $moneyParser = new DecimalMoneyParser($currencies);
-        $exchange = new ReversedCurrenciesExchange(new FixedExchange([
-            'EUR' => ['USD' => 1.1183],
-        ]));
-
-        $converter = new Converter($currencies, $exchange);
+        $moneyParser = new DecimalMoneyParser(new ISOCurrencies());
 
         foreach ($items as $item) {
             $itemTotalPrice = $moneyParser
@@ -35,7 +34,7 @@ final class CalculateCartValue implements CanCalculateCartValue
                 ->multiply($item['quantity']);
 
             $itemTotalPriceInCheckoutCurrency = $item['currency'] !== $checkoutCurrency
-                ? $converter->convert($itemTotalPrice, new Currency($checkoutCurrency))
+                ? $this->converter->convert($itemTotalPrice, new Currency($checkoutCurrency))
                 : $itemTotalPrice;
 
             $checkoutPrice = $checkoutPrice->add($itemTotalPriceInCheckoutCurrency);

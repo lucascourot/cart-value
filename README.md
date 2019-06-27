@@ -12,6 +12,29 @@
 
 > make start-dev # Starts the api built-in server in dev mode (Fixer currency converter)
 
+```
+curl -X POST \
+  http://127.0.0.1:8080/calculations \
+  -H 'accept: application/json' \
+  -H 'content-type: application/json' \
+  -d '{
+  "items": {
+    "42": {
+      "currency": "EUR",
+      "price": 49.99,
+      "quantity": 1
+    },
+    "55": {
+      "currency": "USD",
+      "price": 12,
+      "quantity": 3
+    }
+  },
+  "checkoutCurrency": "EUR"
+}
+'
+```
+
 # Rules
 
 ## Context

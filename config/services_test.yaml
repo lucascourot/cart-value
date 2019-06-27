@@ -1,0 +1,5 @@
+parameters:
+    api_base_uri: '%env(API_BASE_URI)%'
+
+services:
+    App\CartValueCalculator\CurrencyConverter: '@App\CartValueCalculator\FixedCurrencyConverter'

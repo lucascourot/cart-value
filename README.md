@@ -1,12 +1,16 @@
 # Usage
 
-## Dev env
+## Test Env
 
-> make start # Starts the api built-in server
+> make start-test # Starts the api built-in server in test mode (fixed currency converter)
 
 > make test-ci # Runs all kind of tests
 
-## Prod
+## Dev
+
+> make stop # Stops the server
+
+> make start-dev # Starts the api built-in server in dev mode (Fixer currency converter)
 
 # Rules
 

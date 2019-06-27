@@ -44,11 +44,13 @@ install: vendor
 vendor: composer.json composer.lock
 	composer install
 
-.PHONY: start
-start: .web-server-pid
+.PHONY: start-test
+start-test: vendor
+		php ./bin/console --env=test server:start 127.0.0.1:8080
 
-.web-server-pid: vendor ## Starts the server
-	php ./bin/console server:start 127.0.0.1:8080
+.PHONY: start-dev
+start-dev: vendor
+	php ./bin/console --env=dev server:start 127.0.0.1:8080
 
 .PHONY: stop
 stop: vendor ## Stop the server
